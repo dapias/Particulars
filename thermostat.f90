@@ -1,0 +1,161 @@
+!----------------------------------------------------------------------
+!                              THERMOSTATS                            !
+!----------------------------------------------------------------------
+
+MODULE thermostat
+
+    USE parameters, ONLY : npart, set_temp, dt, Kp, Ki, Kd
+
+    IMPLICIT NONE
+
+    REAL, PRIVATE :: proportional, integral, differential
+
+
+CONTAINS
+
+
+
+    PURE SUBROUTINE thermostat_full(Vx, Vy, Vz)
+
+        ! A thermostat simulating an ambient bath/fluid that acts on the
+        ! particles as and when called. It rescales all velocities equally.
+
+        REAL, DIMENSION(:), INTENT(INOUT) :: Vx, Vy, Vz
+
+        REAL :: sumVx2, sumVy2, sumVz2, sfx, sfy, sfz
+
+        sumVx2 = 0 ; sumVy2 = 0 ; sumVz2 = 0
+        sfx = 0 ; sfy = 0 ; sfz = 0
+
+        sumVx2 = SUM(Vx*Vx)/REAL(npart)                             ! mean squared velocities
+        sumVy2 = SUM(Vy*Vy)/REAL(npart)
+        sumVz2 = SUM(Vz*Vz)/REAL(npart)
+
+        sfx = set_temp/sumVx2                                       ! temperature scale factors
+        sfy = set_temp/sumVy2
+        sfz = set_temp/sumVz2
+
+        Vx = Vx * SQRT(sfx)                                         ! scaling velocities
+        Vy = Vy * SQRT(sfy)
+        Vz = Vz * SQRT(sfz)
+
+    END SUBROUTINE thermostat_full
+
+    
+    PURE SUBROUTINE thermostat_full_2D(Vx, Vy)
+
+        ! A thermostat simulating an ambient bath/fluid that acts on the
+        ! particles as and when called. It rescales all velocities equally.
+
+        REAL, DIMENSION(:), INTENT(INOUT) :: Vx, Vy
+
+        REAL :: sumVx2, sumVy2, sfx, sfy
+
+        sumVx2 = 0 ; sumVy2 = 0
+        sfx = 0 ; sfy = 0
+
+        sumVx2 = SUM(Vx*Vx)/REAL(npart)                             ! mean squared velocities
+        sumVy2 = SUM(Vy*Vy)/REAL(npart)
+
+        sfx = set_temp/sumVx2                                       ! temperature scale factors
+        sfy = set_temp/sumVy2
+
+        Vx = Vx * SQRT(sfx)                                         ! scaling velocities
+        Vy = Vy * SQRT(sfy)
+
+    END SUBROUTINE thermostat_full_2D
+
+
+
+
+    SUBROUTINE thermostat_pid_init()
+
+        proportional=0 ; integral=0 ; differential=0
+
+    END SUBROUTINE thermostat_pid_init
+
+
+    SUBROUTINE thermostat_full_pid(current_temp, Vx, Vy, Vz)
+
+        ! A thermostat_full with a PID controlling approach to the set temperature.
+        ! Set gains in MODULE parameters.
+
+        REAL, INTENT(IN) :: current_temp
+        REAL, DIMENSION(:), INTENT(INOUT) :: Vx, Vy, Vz
+
+        REAL :: temp, error, sumVx2, sumVy2, sumVz2, sfx, sfy, sfz
+
+        error = set_temp - current_temp
+        integral = integral + (error*dt)
+        differential = (error - proportional)/dt
+
+        proportional = error
+
+        temp = current_temp + (Kp*proportional) + (Ki*integral) + (Kd*differential)
+
+
+        sumVx2 = 0 ; sumVy2 = 0 ; sumVz2 = 0
+        sfx = 0 ; sfy = 0 ; sfz = 0
+
+        sumVx2 = SUM(Vx*Vx)/REAL(npart)                             ! mean squared velocities
+        sumVy2 = SUM(Vy*Vy)/REAL(npart)
+        sumVz2 = SUM(Vz*Vz)/REAL(npart)
+
+        sfx = temp/sumVx2                                           ! temperature scale factors
+        sfy = temp/sumVy2
+        sfz = temp/sumVz2
+
+        Vx = Vx * SQRT(sfx)                                         ! scaling velocities
+        Vy = Vy * SQRT(sfy)
+        Vz = Vz * SQRT(sfz)
+
+    END SUBROUTINE thermostat_full_pid
+
+
+    SUBROUTINE thermostat_full_pid_2D(current_temp, Vx, Vy)
+
+        ! A thermostat_full with a PID controlling approach to the set temperature.
+        ! Set gains in MODULE parameters.
+
+        REAL, INTENT(IN) :: current_temp
+        REAL, DIMENSION(:), INTENT(INOUT) :: Vx, Vy
+
+        REAL :: temp, error, sumVx2, sumVy2, sfx, sfy
+
+        error = set_temp - current_temp
+        integral = integral + (error*dt)
+        differential = (error - proportional)/dt
+
+        proportional = error
+
+        temp = current_temp + (Kp*proportional) + (Ki*integral) + (Kd*differential)
+
+
+        sumVx2 = 0 ; sumVy2 = 0
+        sfx = 0 ; sfy = 0
+
+        sumVx2 = SUM(Vx*Vx)/REAL(npart)                             ! mean squared velocities
+        sumVy2 = SUM(Vy*Vy)/REAL(npart)
+
+        sfx = temp/sumVx2                                           ! temperature scale factors
+        sfy = temp/sumVy2
+
+        Vx = Vx * SQRT(sfx)                                         ! scaling velocities
+        Vy = Vy * SQRT(sfy)
+
+    END SUBROUTINE thermostat_full_pid_2D
+
+
+
+
+    SUBROUTINE thermostat_wall()
+
+        ! A particle passing through a wall results in a rescaling of its
+        ! velocity commensurate with a set temperature.
+
+
+    END SUBROUTINE thermostat_wall
+
+
+
+END MODULE thermostat

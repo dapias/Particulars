@@ -1,0 +1,5 @@
+07/07/2017
+
+    - Frozen glass and liquid interface
+    - Put frozen in harmonic pot. and soften to 0 strength
+

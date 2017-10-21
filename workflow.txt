@@ -1,0 +1,7 @@
+11 Jul 2016
+
+- realised that SQRT(dRsq) E [0,6*SQRT(3)] and not [0,6],  and that so, the IF statement aroung the g(r) populating statement is necessary.
+
+18 Jul 2016
+
+- Vikash found an error in the integration step: that it was Verlet, and not Velocity Verlet.
