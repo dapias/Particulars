@@ -4,82 +4,73 @@
 
 MODULE eigen
 
-    USE la_precision, ONLY: WP => SP
-    USE f95_lapack, ONLY: LA_SYEV, LA_SYEVD
+    !USE la_precision, ONLY: WP => DP
+    USE f95_lapack, ONLY: LA_SYEV, LA_SYEVD, LA_SYEVX, LA_SYEVR
 
     IMPLICIT NONE
+
+    ! The matrix 'A' is to be upper triangular; not the full symmetric matrix
 
 CONTAINS
 
 
-    SUBROUTINE eigen_syev()
+    SUBROUTINE eigen_syev(A, W, INFO)
 
         ! COMPUTE ALL EIGENVALUES AND, OPTIONALLY, ALL EIGENVECTORS OF A REAL SYMMETRIC MATRIX
 
-        INTEGER :: I, J, INFO, N
+        REAL, ALLOCATABLE, INTENT(IN) :: A(:,:)
 
-        REAL(WP), ALLOCATABLE :: A(:,:), AA(:,:), W(:)
+        INTEGER, INTENT(OUT) :: INFO
+        REAL, ALLOCATABLE, INTENT(OUT) :: W(:)
 
-        WRITE (*,*) 'LA_SYEV Example Program Results'
-        N = 5
-        ALLOCATE( A(N,N), AA(N,N), W(N) )
-
-        OPEN(UNIT=21,FILE='syev.ma',STATUS='UNKNOWN')
-        DO J=1,N
-            DO I=1,N
-                READ(21,*) A(I,J)
-            ENDDO
-        ENDDO
-        CLOSE(21)
-
-        AA=TRANSPOSE(A)
-
-        WRITE(*,*)'Matrix A:'
-        DO I=1,N
-            WRITE(*,"(5(F9.5))") A(I,:)
-        ENDDO
-
-        WRITE(*,*) 'CALL LA_SYEV( A, W )'
-        CALL LA_SYEV(  A, W)
-        WRITE(*,*) 'W on exit : '
-        DO I=1,N
-            WRITE(*,"(5(F10.5))") W(I)
-        ENDDO
+        CALL LA_SYEV(A, W, INFO)
 
     END SUBROUTINE eigen_syev
 
 
-    SUBROUTINE eigen_syevd()
+    SUBROUTINE eigen_syevd(A, W, INFO)
 
         ! USE A DIVIDE AND CONQUER ALGORITHM. IF EIGENVECTORS ARE DESIRED, CAN BE MUCH FASTER THAN syev FOR LARGE MATRICES, BUT USE MORE WORKSPACE.
 
-        INTEGER :: I, J, INFO, N
+        REAL, ALLOCATABLE, INTENT(IN) :: A(:,:)
 
-        REAL(WP), ALLOCATABLE :: A(:,:), AA(:,:), W(:)
+        INTEGER, INTENT(OUT) :: INFO
+        REAL, ALLOCATABLE, INTENT(OUT) :: W(:)
 
-        WRITE(*,*)
-        WRITE(*,*)' * EXAMPLE 2 * '
-
-        WRITE(*,*)'Matrix A:'
-        DO I=1,N
-            WRITE(*,"(5(F9.5))") AA(I,:)
-        ENDDO
-
-        WRITE(*,*) "CALL LA_SYEVD( A, W, 'V', 'L', INFO )"
-        CALL LA_SYEVD( AA, W, 'V', 'L', INFO )
-
-        WRITE(*,*) 'A on exit : '
-        DO I=1,N
-            WRITE(*,"(5(E14.6))") AA(I,:)
-        ENDDO
-
-        WRITE(*,*) 'W on exit : '
-        DO I=1,N
-            WRITE(*,"(5(F10.5))") W(I)
-        ENDDO
-
-        WRITE(*,*) ' INFO = ', INFO
+        CALL LA_SYEVD(A, W, INFO)
 
     END SUBROUTINE eigen_syevd
+
+
+    SUBROUTINE eigen_syevx(A, W, INFO)
+
+        ! COMPUTE SELECTED EIGENVALUES AND, OPTIONALLY, THE CORRESPONDING EIGENVECTORS OF A REAL SYMMETRIC HERMITIAN MATRIX
+
+        REAL, ALLOCATABLE, INTENT(IN) :: A(:,:)
+
+        INTEGER, INTENT(OUT) :: INFO
+        REAL, ALLOCATABLE, INTENT(OUT) :: W(:)
+
+        CALL LA_SYEVX(A, W, INFO)
+        !CALL LA_SYEVX( A, W, IU=1)
+
+    END SUBROUTINE eigen_syevx
+
+
+    SUBROUTINE eigen_syevr(A, W, INFO)
+
+        ! COMPUTE SELECTED EIGENVALUES AND, OPTIONALLY, THE CORRESPONDING EIGENVECTORS OF A REAL SYMMETRIC HERMITIAN MATRIX, USING A RELATIVELY ROBUST REPRESENTATION (RRR) ALGORITHM. IT IS USUALLY THE FASTEST ALGORITHM OF ALL AND USES THE LEAST WORKSPACE.
+
+        REAL, ALLOCATABLE, INTENT(IN) :: A(:,:)
+
+        INTEGER, INTENT(OUT) :: INFO
+        REAL, ALLOCATABLE, INTENT(OUT) :: W(:)
+
+        !CALL LA_SYEVR(A, W, INFO)
+        CALL LA_SYEVR( A, W, IU=1, INFO)
+        ! ^ Finds the minimum eigen-value
+
+    END SUBROUTINE eigen_syevr
+
 
 END MODULE eigen
