@@ -114,18 +114,18 @@ PROGRAM CrysMelt
         !    CALL plot_radial_dist(k, g)
         !END IF
 
-        WRITE(6,'(4(a))',ADVANCE="no") "\b","\b","\b","\b"                  ! backslash control character: backspace
-        CALL FLUSH(6)
-        WRITE(6,'(I3,"%")',ADVANCE="no") INT( (k*100)/REAL(n) )             ! percentage complete indicator to stdout
-        CALL FLUSH(6)
+        !WRITE(6,'(4(a))',ADVANCE="no") "\b","\b","\b","\b"                  ! backslash control character: backspace
+        !CALL FLUSH(6)
+        !WRITE(6,'(I3,"%")',ADVANCE="no") INT( (k*100)/REAL(n) )             ! percentage complete indicator to stdout
+        !CALL FLUSH(6)
 
     END DO
 
     CALL plot_energy()
 
-    DEALLOCATE(Fx, Fy, Fz, Rx, Ry, Rz, Vx, Vy, Vz, Vsq)
+    DEALLOCATE(Fx, Fy, Fz, Rx, Ry, Rz, Vx, Vy, Vz, Vsq, g)
 
-    PRINT*, ""
+    !PRINT*, ""
 
     CALL SYSTEM_CLOCK(terminate)
     CALL CPU_TIME(finish)
