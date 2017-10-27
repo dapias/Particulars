@@ -66,7 +66,6 @@ PROGRAM CrysMelt
 
     CALL thermostat_pid_init()                                              ! initialize PID variables
 
-    !CALL diagnostics_20_43_init()
 
     DO k = 1, n                                                             ! multiple runs
 
@@ -95,6 +94,8 @@ PROGRAM CrysMelt
             CALL plot_energy()
             PRINT*, ""
             CALL EXECUTE_COMMAND_LINE("fortune -o")
+            PRINT*, ""
+            PRINT*, "Loop number ", k
             PRINT*, ""
             CALL diagnostics_pos_vel(Vsq, Vx, Vy, Vz, Rx, Ry, Rz, Fx, Fy, Fz, ptemp, temp)
         ELSE

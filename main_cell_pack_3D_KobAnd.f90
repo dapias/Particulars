@@ -71,7 +71,6 @@ PROGRAM CrysMelt
 
     CALL thermostat_pid_init()                                              ! initialize PID variables
 
-    !CALL diagnostics_20_43_init()
 
     DO k = 1, n                                                             ! multiple runs
 

@@ -102,7 +102,7 @@ CONTAINS
 
         c = cell_id(  INT(Rz/cell), INT(Ry/cell), INT(Rx/cell)  )
 
-        DO CONCURRENT (i = 1 : npart)
+        DO i = 1, npart
             mask( i, c(i) ) = .TRUE.
         END DO
 
@@ -263,13 +263,13 @@ CONTAINS
 
                     END DO
 
-                    Fx = Fx + UNPACK(cell_Fx(1:l), mask_l_force, [(real_zero, o=1, l)])                 ! unpack into the force array
-                    Fy = Fy + UNPACK(cell_Fy(1:l), mask_l_force, [(real_zero, o=1, l)])
-                    Fz = Fz + UNPACK(cell_Fz(1:l), mask_l_force, [(real_zero, o=1, l)])
+                    Fx = Fx + UNPACK(cell_Fx(1:l), mask_l_force, [(real_zero, o=1, npart)])                 ! unpack into the force array
+                    Fy = Fy + UNPACK(cell_Fy(1:l), mask_l_force, [(real_zero, o=1, npart)])
+                    Fz = Fz + UNPACK(cell_Fz(1:l), mask_l_force, [(real_zero, o=1, npart)])
 
-                    Fx = Fx + UNPACK(cell_Fx(l+1:r), mask_s_force, [(real_zero, o=1, s)])
-                    Fy = Fy + UNPACK(cell_Fy(l+1:r), mask_s_force, [(real_zero, o=1, s)])
-                    Fz = Fz + UNPACK(cell_Fz(l+1:r), mask_s_force, [(real_zero, o=1, s)])
+                    Fx = Fx + UNPACK(cell_Fx(l+1:r), mask_s_force, [(real_zero, o=1, npart)])
+                    Fy = Fy + UNPACK(cell_Fy(l+1:r), mask_s_force, [(real_zero, o=1, npart)])
+                    Fz = Fz + UNPACK(cell_Fz(l+1:r), mask_s_force, [(real_zero, o=1, npart)])
 
                     DEALLOCATE( cell_Rx, cell_Ry, cell_Rz, cell_Fx, cell_Fy, cell_Fz )
 
