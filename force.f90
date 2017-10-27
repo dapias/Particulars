@@ -142,8 +142,6 @@ CONTAINS
         LOGICAL :: border_i_0, border_i_n, border_j_0, border_j_n, border_m
         LOGICAL, DIMENSION(npart) :: mask_l_force, mask_s_force
         REAL, DIMENSION(:), ALLOCATABLE :: cell_Rx, cell_Ry, cell_Rz, cell_Fx, cell_Fy, cell_Fz
-        REAL, DIMENSION(:), ALLOCATABLE :: cell_Rxl, cell_Ryl, cell_Rzl, cell_Fxl, cell_Fyl, cell_Fzl
-        REAL, DIMENSION(:), ALLOCATABLE :: cell_Rxs, cell_Rys, cell_Rzs, cell_Fxs, cell_Fys, cell_Fzs
 
         REAL, INTENT(OUT) :: pot_en
         REAL, DIMENSION(:), INTENT(OUT) :: Fx, Fy, Fz
@@ -170,17 +168,7 @@ CONTAINS
 
                     mask_l_force = mask(:,  cell_id(   m,   j,   i )  )                 ! mask of the cell
 
-                    !ALLOCATE( cell_Rxl(l), cell_Ryl(l), cell_Rzl(l), cell_Fxl(l), cell_Fyl(l), cell_Fzl(l) )
-
-                    cell_Rxl = PACK(Rx, mask_l_force)                                   ! packing the cell
-                    cell_Ryl = PACK(Ry, mask_l_force)
-                    cell_Rzl = PACK(Rz, mask_l_force)
-
-                    l = SIZE(cell_Rxl)                                                  ! no. of particles in the cell
-
-                    cell_Fxl = [(real_zero, o=1, l)]
-                    cell_Fyl = [(real_zero, o=1, l)]
-                    cell_Fzl = [(real_zero, o=1, l)]
+                    l = COUNT(mask_l_force)                                             ! no. of particles in the cell
 
 
                     mask_s_force = mask(:,  cell_id(   m,   j, i+1 )  ) &               ! mask of half the surrounding cells
@@ -197,30 +185,25 @@ CONTAINS
                               .OR. mask(:,  cell_id( m+1, j+1,   i )  ) &
                               .OR. mask(:,  cell_id( m+1, j+1, i+1 )  )
 
-
-                    !ALLOCATE( cell_Rx(s), cell_Ry(s), cell_Rz(s), cell_Fx(s), cell_Fy(s), cell_Fz(s) )
-
-                    cell_Rxs = PACK(Rx, mask_s_force)                                   ! packing half the surrounding cells
-                    cell_Rys = PACK(Ry, mask_s_force)
-                    cell_Rzs = PACK(Rz, mask_s_force)
-
-                    s = SIZE(cell_Rxs)                                                  ! no. of part. in half the surr. cells
-
-                    cell_Fxs = [(real_zero, o=1, s)]
-                    cell_Fys = [(real_zero, o=1, s)]
-                    cell_Fzs = [(real_zero, o=1, s)]
+                    s = COUNT(mask_s_force)                                             ! no. of part. in half the surr. cells
 
                     r = l+s
 
-                    !ALLOCATE( cell_Rx(r), cell_Ry(r), cell_Rz(r), cell_Fx(r), cell_Fy(r), cell_Fz(r) )
+                    ALLOCATE( cell_Rx(r), cell_Ry(r), cell_Rz(r) )
 
-                    cell_Rx = [cell_Rxl, cell_Rxs]                                      ! concatenate l & s arrays
-                    cell_Ry = [cell_Ryl, cell_Rys]
-                    cell_Rz = [cell_Rzl, cell_Rzs]
+                    cell_Rx(1:l) = PACK(Rx, mask_l_force)                               ! packing the cell
+                    cell_Ry(1:l) = PACK(Ry, mask_l_force)
+                    cell_Rz(1:l) = PACK(Rz, mask_l_force)
 
-                    cell_Fx = [cell_Fxl, cell_Fxs]
-                    cell_Fy = [cell_Fyl, cell_Fys]
-                    cell_Fz = [cell_Fzl, cell_Fzs]
+                    cell_Rx(l+1:r) = PACK(Rx, mask_s_force)                             ! packing half the surrounding cells
+                    cell_Ry(l+1:r) = PACK(Ry, mask_s_force)
+                    cell_Rz(l+1:r) = PACK(Rz, mask_s_force)
+
+                    ALLOCATE( cell_Fx(r), cell_Fy(r), cell_Fz(r) )
+
+                    cell_Fx = [(real_zero, o=1, r)]
+                    cell_Fy = [(real_zero, o=1, r)]
+                    cell_Fz = [(real_zero, o=1, r)]
 
 
                     DO p = 1, l                                                         ! iterating over particles in the cell
@@ -280,22 +263,15 @@ CONTAINS
 
                     END DO
 
-                    cell_Fxl = cell_Fx(1:l)                                             ! de-concatenate into l & s
-                    cell_Fxs = cell_Fx(l+1:r)
-                    cell_Fyl = cell_Fy(1:l)
-                    cell_Fys = cell_Fy(l+1:r)
-                    cell_Fzl = cell_Fz(1:l)
-                    cell_Fzs = cell_Fz(l+1:r)
+                    Fx = Fx + UNPACK(cell_Fx(1:l), mask_l_force, [(real_zero, o=1, l)])                 ! unpack into the force array
+                    Fy = Fy + UNPACK(cell_Fy(1:l), mask_l_force, [(real_zero, o=1, l)])
+                    Fz = Fz + UNPACK(cell_Fz(1:l), mask_l_force, [(real_zero, o=1, l)])
 
-                    Fx = Fx + UNPACK(cell_Fxl, mask_l_force, real_zero)                 ! unpack into the force array
-                    Fy = Fy + UNPACK(cell_Fyl, mask_l_force, real_zero)
-                    Fz = Fz + UNPACK(cell_Fzl, mask_l_force, real_zero)
+                    Fx = Fx + UNPACK(cell_Fx(l+1:r), mask_s_force, [(real_zero, o=1, s)])
+                    Fy = Fy + UNPACK(cell_Fy(l+1:r), mask_s_force, [(real_zero, o=1, s)])
+                    Fz = Fz + UNPACK(cell_Fz(l+1:r), mask_s_force, [(real_zero, o=1, s)])
 
-                    Fx = Fx + UNPACK(cell_Fxs, mask_s_force, real_zero)
-                    Fy = Fy + UNPACK(cell_Fys, mask_s_force, real_zero)
-                    Fz = Fz + UNPACK(cell_Fzs, mask_s_force, real_zero)
-
-                    !DEALLOCATE( cell_Rx, cell_Ry, cell_Rz, cell_Fx, cell_Fy, cell_Fz )
+                    DEALLOCATE( cell_Rx, cell_Ry, cell_Rz, cell_Fx, cell_Fy, cell_Fz )
 
                 END DO
             END DO
@@ -716,6 +692,8 @@ CONTAINS
         INTEGER :: i, j, ri
         REAL :: Rxi, Ryi, dRx, dRy, dR, dRsq
         REAL, DIMENSION(:), INTENT(OUT) :: g
+        
+        g = real_zero
 
         !$OMP PARALLEL DEFAULT(PRIVATE) SHARED(Rx,Ry,g)
         !$OMP DO REDUCTION(+:g)
