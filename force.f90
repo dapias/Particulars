@@ -674,6 +674,8 @@ CONTAINS
         REAL :: Rxi, Ryi, Rzi, dRx, dRy, dRz, dR, dRsq
         REAL, DIMENSION(:), INTENT(OUT) :: g
 
+        g = real_zero
+
         !!$OMP PARALLEL DEFAULT(SHARED) PRIVATE(Rxi,Ryi,Rzi,dRx,dRy,dRz,dRsq,dR,RF2,RF6,F,ri)
         !$OMP PARALLEL DEFAULT(PRIVATE) SHARED(Rx,Ry,Rz,g)
         !$OMP DO REDUCTION(+:g)

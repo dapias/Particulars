@@ -18,8 +18,8 @@ PROGRAM CrysMelt
 
     REAL :: temp, en, time_cpu, pot_en, ptemp, start, finish, kin_en, time_real
 
-    REAL, DIMENSION(:), ALLOCATABLE :: Fx, Fy, Fz, Rx, Ry, Rz, Vx, Vy, Vz, Vsq
-    REAL, DIMENSION(:), ALLOCATABLE :: g
+    REAL, DIMENSION(:), ALLOCATABLE :: Fx, Fy, Fz, Rx, Ry, Rz, Vx, Vy, Vz, &
+        Vsq, g
 
     CALL CPU_TIME(start)
     CALL SYSTEM_CLOCK(initiate, clock_rate)
@@ -125,7 +125,7 @@ PROGRAM CrysMelt
 
     DEALLOCATE(Fx, Fy, Fz, Rx, Ry, Rz, Vx, Vy, Vz, Vsq, g)
 
-    !PRINT*, ""
+    PRINT*, ""
 
     CALL SYSTEM_CLOCK(terminate)
     CALL CPU_TIME(finish)
