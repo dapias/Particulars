@@ -16,7 +16,8 @@ PROGRAM CrysMelt
 
     INTEGER :: k, AllocateStatus, initiate, terminate, clock_rate
 
-    REAL :: temp, en, time_cpu, pot_en, ptemp, start, finish, kin_en, time_real
+    REAL :: temp, en, time_cpu, pot_en, ptemp, start, finish, kin_en, &
+        time_real, ppot_en
 
     REAL, DIMENSION(:), ALLOCATABLE :: Fx, Fy, Fz, Rx, Ry, Rz, Vx, Vy, Vz, &
         Vsq, g
@@ -55,7 +56,7 @@ PROGRAM CrysMelt
     CALL force_rdf(Rx, Ry, Rz, g)
 
     en = (pot_en/REAL(npart)) + kin_en                                      ! energy per particle
-
+    ppot_en = pot_en
 
     k=0
 
@@ -90,8 +91,9 @@ PROGRAM CrysMelt
 
         CALL plot_energy_data(k, en, pot_en, kin_en)
 
-
-        IF (temp .GT. (100*ptemp)) THEN                                     ! excessive temp fluctuation check
+        IF ( temp .GT. (10*ptemp) ) THEN
+        !IF ( (temp .GT. (10*ptemp)) .OR. (pot_en .GT. ABS(ppot_en)) ) THEN
+            ! excessive fluctuation check
             CALL plot_energy()
             PRINT*, ""
             CALL EXECUTE_COMMAND_LINE("fortune -o")
@@ -101,6 +103,7 @@ PROGRAM CrysMelt
             CALL diagnostics_pos_vel(Vsq, Vx, Vy, Vz, Rx, Ry, Rz, Fx, Fy, Fz, ptemp, temp)
         ELSE
             ptemp = temp
+            ppot_en = pot_en
         END IF
 
         IF ( k .GT. n+1 ) THEN                                              ! switch on the thermostat
@@ -120,6 +123,7 @@ PROGRAM CrysMelt
         !CALL FLUSH(6)
         !WRITE(6,'(I3,"%")',ADVANCE="no") INT( (k*100)/REAL(n) )             ! percentage complete indicator to stdout
         !CALL FLUSH(6)
+
 
     END DO
 

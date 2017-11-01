@@ -40,22 +40,13 @@ CONTAINS
 
         REAL, DIMENSION(:), INTENT(OUT) :: Rx, Ry, Rz
 
-        INTEGER :: i, x, y, z
+        INTEGER, DIMENSION(npart) :: I
 
-        x=0 ; y=0 ; z=0
+        I = [(i, i=0, npart-1)]
 
-        !$OMP PARALLEL DEFAULT(SHARED) PRIVATE(x,y,z)
-        !$OMP DO
-        DO i = 1, npart
-            x = MODULO(i-1, npart_edge)
-            Rx(i) = space*x
-            y = MODULO( ( (i-1) / npart_edge ), npart_edge)
-            Ry(i) = space*y
-            z = (i-1) / npart_face
-            Rz(i) = space*z
-        END DO
-        !$OMP END DO
-        !$OMP END PARALLEL
+        Rx = space * MODULO(I, npart_edge)
+        Ry = space * MODULO( (I/npart_edge), npart_edge)
+        Rz = I / npart_face
 
 
     END SUBROUTINE lattice_simple_cubic
@@ -89,21 +80,12 @@ CONTAINS
 
         REAL, DIMENSION(:), INTENT(OUT) :: Rx, Ry
 
-        INTEGER :: i, x, y
+        INTEGER, DIMENSION(npart) :: I
 
-        x=0 ; y=0
+        I = [(i, i=0, npart-1)]
 
-        !$OMP PARALLEL DEFAULT(SHARED) PRIVATE(x,y)
-        !$OMP DO
-        DO i = 1, npart
-            x = MODULO(i-1, npart_edge)
-            Rx(i) = space*x
-            y = MODULO( ( (i-1) / npart_edge ), npart_edge)
-            Ry(i) = space*y
-        END DO
-        !$OMP END DO
-        !$OMP END PARALLEL
-
+        Rx = space * MODULO(I, npart_edge)
+        Ry = space * MODULO( (I/npart_edge), npart_edge)
 
     END SUBROUTINE lattice_square
 
@@ -137,7 +119,7 @@ CONTAINS
 
         REAL :: sumVx, sumVy, sumVz
 
-        CALL init_random_seed()
+        CALL init_random_seed_fixed()
 
         CALL RANDOM_NUMBER(Vx)
         Vx = Vx - 0.5
