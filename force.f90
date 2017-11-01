@@ -692,7 +692,7 @@ CONTAINS
         INTEGER :: i, j, ri
         REAL :: Rxi, Ryi, dRx, dRy, dR, dRsq
         REAL, DIMENSION(:), INTENT(OUT) :: g
-        
+
         g = real_zero
 
         !$OMP PARALLEL DEFAULT(PRIVATE) SHARED(Rx,Ry,g)

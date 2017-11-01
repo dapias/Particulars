@@ -93,4 +93,18 @@ CONTAINS
     END SUBROUTINE
 
 
+    SUBROUTINE init_random_seed_fixed()
+
+        INTEGER :: i, n, clock
+        INTEGER, DIMENSION(:), ALLOCATABLE :: seed
+
+        CALL RANDOM_SEED(size = n)
+        ALLOCATE(seed(n))
+
+        seed = 37 * [(i - 1, i = 1, n)]
+        CALL RANDOM_SEED(PUT = seed)
+
+        DEALLOCATE(seed)
+    END SUBROUTINE
+
 END MODULE random_init

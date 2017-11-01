@@ -35,6 +35,7 @@ PROGRAM CrysMelt
         STOP "*** Not enough memory ***"
     END IF
 
+    PRINT*, box
 
     CALL lattice_simple_cubic(Rx, Ry, Rz)
 
