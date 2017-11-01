@@ -95,7 +95,7 @@ CONTAINS
 
     SUBROUTINE init_random_seed_fixed()
 
-        INTEGER :: i, n, clock
+        INTEGER :: i, n
         INTEGER, DIMENSION(:), ALLOCATABLE :: seed
 
         CALL RANDOM_SEED(size = n)
