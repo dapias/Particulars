@@ -40,9 +40,10 @@ CONTAINS
 
         REAL, DIMENSION(:), INTENT(OUT) :: Rx, Ry, Rz
 
+        INTEGER :: j
         INTEGER, DIMENSION(npart) :: I
 
-        I = [(i, i=0, npart-1)]
+        I = [(j, j=0, npart-1)]
 
         Rx = space * MODULO(I, npart_edge)
         Ry = space * MODULO( (I/npart_edge), npart_edge)
@@ -80,9 +81,10 @@ CONTAINS
 
         REAL, DIMENSION(:), INTENT(OUT) :: Rx, Ry
 
+        INTEGER :: j
         INTEGER, DIMENSION(npart) :: I
 
-        I = [(i, i=0, npart-1)]
+        I = [(j, j=0, npart-1)]
 
         Rx = space * MODULO(I, npart_edge)
         Ry = space * MODULO( (I/npart_edge), npart_edge)
