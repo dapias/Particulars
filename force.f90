@@ -263,13 +263,13 @@ CONTAINS
 
                     END DO
 
-                    Fx = Fx + UNPACK(cell_Fx(1:l), mask_l_force, [(real_zero, o=1, npart)])                 ! unpack into the force array
-                    Fy = Fy + UNPACK(cell_Fy(1:l), mask_l_force, [(real_zero, o=1, npart)])
-                    Fz = Fz + UNPACK(cell_Fz(1:l), mask_l_force, [(real_zero, o=1, npart)])
+                    Fx = Fx + UNPACK(cell_Fx(1:l), mask_l_force, real_zero)                 ! unpack into the force array
+                    Fy = Fy + UNPACK(cell_Fy(1:l), mask_l_force, real_zero)
+                    Fz = Fz + UNPACK(cell_Fz(1:l), mask_l_force, real_zero)
 
-                    Fx = Fx + UNPACK(cell_Fx(l+1:r), mask_s_force, [(real_zero, o=1, npart)])
-                    Fy = Fy + UNPACK(cell_Fy(l+1:r), mask_s_force, [(real_zero, o=1, npart)])
-                    Fz = Fz + UNPACK(cell_Fz(l+1:r), mask_s_force, [(real_zero, o=1, npart)])
+                    Fx = Fx + UNPACK(cell_Fx(l+1:r), mask_s_force, real_zero)
+                    Fy = Fy + UNPACK(cell_Fy(l+1:r), mask_s_force, real_zero)
+                    Fz = Fz + UNPACK(cell_Fz(l+1:r), mask_s_force, real_zero)
 
                     DEALLOCATE( cell_Rx, cell_Ry, cell_Rz, cell_Fx, cell_Fy, cell_Fz )
 
@@ -530,7 +530,7 @@ CONTAINS
 
                 r = l+s
 
-                ALLOCATE( cell_Rx(r), cell_Ry(r), cell_Rz(r) )
+                ALLOCATE( cell_Rx(r), cell_Ry(r) )
 
                 cell_Rx(1:l) = PACK(Rx, mask_l_force)                               ! packing the cell
                 cell_Ry(1:l) = PACK(Ry, mask_l_force)
@@ -538,7 +538,7 @@ CONTAINS
                 cell_Rx(l+1:r) = PACK(Rx, mask_s_force)                             ! packing half the surrounding cells
                 cell_Ry(l+1:r) = PACK(Ry, mask_s_force)
 
-                ALLOCATE( cell_Fx(r), cell_Fy(r), cell_Fz(r) )
+                ALLOCATE( cell_Fx(r), cell_Fy(r) )
 
                 cell_Fx = [(real_zero, o=1, r)]
                 cell_Fy = [(real_zero, o=1, r)]
@@ -588,13 +588,13 @@ CONTAINS
 
                 END DO
 
-                Fx = Fx + UNPACK(cell_Fx(1:l), mask_l_force, [(real_zero, o=1, npart)])                 ! unpack into the force array
-                Fy = Fy + UNPACK(cell_Fy(1:l), mask_l_force, [(real_zero, o=1, npart)])
+                Fx = Fx + UNPACK(cell_Fx(1:l), mask_l_force, real_zero)                 ! unpack into the force array
+                Fy = Fy + UNPACK(cell_Fy(1:l), mask_l_force, real_zero)
 
-                Fx = Fx + UNPACK(cell_Fx(l+1:r), mask_s_force, [(real_zero, o=1, npart)])
-                Fy = Fy + UNPACK(cell_Fy(l+1:r), mask_s_force, [(real_zero, o=1, npart)])
+                Fx = Fx + UNPACK(cell_Fx(l+1:r), mask_s_force, real_zero)
+                Fy = Fy + UNPACK(cell_Fy(l+1:r), mask_s_force, real_zero)
 
-                DEALLOCATE( cell_Rx, cell_Ry, cell_Rz, cell_Fx, cell_Fy, cell_Fz )
+                DEALLOCATE( cell_Rx, cell_Ry, cell_Fx, cell_Fy )
 
 
             END DO

@@ -97,7 +97,7 @@ PROGRAM CrysMelt
             CALL plot_energy()
             CALL plot_positions(k, temp, en, Rx, Ry, Rz, Vsq)
             PRINT*, ""
-            CALL EXECUTE_COMMAND_LINE("fortune -o")
+            CALL EXECUTE_COMMAND_LINE("fortune")
             PRINT*, ""
             PRINT*, "Loop number ", k
             PRINT*, ""
