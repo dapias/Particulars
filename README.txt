@@ -61,9 +61,9 @@
 
  CURRENTLY USED OPTIONS:
 
- ifort -I./lapack95_modules_ifort -fpp -O3 -xHost -real-size 64 -qopenmp -assume bscc -assume realloc_lhs parameters.f90 random_init.F90 lattice.f90 thermostat.f90 force.f90 plot.f90 integration.f90 diagnostics.f90 main.f90 -lblas -llapack ./lapack95_modules_ifort/lapack95.a
+ ifort -I./lapack95_modules_ifort -O3 -xHost -real-size 64 -qopenmp -assume bscc -assume realloc_lhs parameters.f90 random_init.F90 lattice.f90 thermostat.f90 force.f90 plot.f90 integration.f90 diagnostics.f90 main.f90 -lblas -llapack ./lapack95_modules_ifort/lapack95.a
 
- gfortran -I./lapack95_modules_gfort -cpp -O3 -march=native -fdefault-real-8 -fopenmp -fbackslash parameters.f90 random_init.F90 lattice.f90 thermostat.f90 force.f90 plot.f90 integration.f90 diagnostics.f90 main.f90 -lblas -llapack ./lapack95_modules_gfort/lapack95.a
+ gfortran -I./lapack95_modules_gfort -O3 -march=native -fdefault-real-8 -fopenmp -fbackslash parameters.f90 random_init.F90 lattice.f90 thermostat.f90 force.f90 plot.f90 integration.f90 diagnostics.f90 main.f90 -lblas -llapack ./lapack95_modules_gfort/lapack95.a
 
 !-----------------------------------------------------------------------------------------------!
 
