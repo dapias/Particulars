@@ -1,10 +1,10 @@
-!-------------------------------------------------------------------------------------------------------------------------------!
-!                                                   MOLECULAR DYNAMICS                                                          !
-!-------------------------------------------------------------------------------------------------------------------------------!
+!-----------------------------------------------------------------------------------------------!
+!                                    MOLECULAR DYNAMICS                                         !
+!-----------------------------------------------------------------------------------------------!
 
 PROGRAM main_brute
 
-    USE parameters, ONLY : n, npart, num_b, set_temp
+    USE parameters, ONLY : n, npart, num_b
     USE lattice
     USE thermostat
     USE force
@@ -14,7 +14,7 @@ PROGRAM main_brute
 
     IMPLICIT NONE
 
-    INTEGER :: i, k, AllocateStatus, initiate, terminate, clock_rate
+    INTEGER :: k, AllocateStatus, initiate, terminate, clock_rate
 
     REAL :: temp, en, time_cpu, pot_en, ptemp, start, finish, kin_en, time_real
 
@@ -106,10 +106,10 @@ PROGRAM main_brute
             CALL plot_radial_dist(k, g)
         END IF
 
-        WRITE(6,'(4(a))',ADVANCE="NO") "\b","\b","\b","\b"                  ! backslash control character: backspace
-        CALL FLUSH(6)
-        WRITE(6,'(I3,"%")',ADVANCE="NO") INT( (k*100)/REAL(n) )             ! percentage complete indicator to stdout
-        CALL FLUSH(6)
+        !WRITE(6,'(4(a))',ADVANCE="NO") "\b","\b","\b","\b"                  ! backslash control character: backspace
+        !CALL FLUSH(6)
+        !WRITE(6,'(I3,"%")',ADVANCE="NO") INT( (k*100)/REAL(n) )             ! percentage complete indicator to stdout
+        !CALL FLUSH(6)
 
     END DO
 
@@ -127,8 +127,8 @@ PROGRAM main_brute
     PRINT*, "Real time =", time_real
     PRINT*, ""
 
-    CALL EXECUTE_COMMAND_LINE("fortune")
-    PRINT*, ""
+    !CALL EXECUTE_COMMAND_LINE("fortune")
+    !PRINT*, ""
 
 END PROGRAM main_brute
 
