@@ -1,6 +1,6 @@
-!-------------------------------------------------------------------------------------------------------------------------------!
-!                                                              README                                                           !
-!-------------------------------------------------------------------------------------------------------------------------------!
+!-----------------------------------------------------------------------------------------------!
+!                                              README                                           !
+!-----------------------------------------------------------------------------------------------!
 
  * All module file names indicate their function.
  * Procedures names begin with the name of the module thay belong to.
@@ -8,7 +8,7 @@
  * Unless specified, all procedures work in 3 dimensions.
  * In the parameters file, you may switch from density control to box side length control
 
-!-------------------------------------------------------------------------------------------------------------------------------!
+!-----------------------------------------------------------------------------------------------!
 
  COMPILE TIME OPTIONS:
 
@@ -51,20 +51,21 @@
  Use the following compiler option to use the pre-processor:
  intel :   -fpp
  gnu   :   -cpp
+ NOT NECESSARY if the relevant file has the '.F90' extension
 
  Use the following during initial compilations, to see all generated warnings:
  intel	: -check -warn -diag-enable=all
  gnu	: -Wall -Wextra
 
-!-------------------------------------------------------------------------------------------------------------------------------!
+!-----------------------------------------------------------------------------------------------!
 
  CURRENTLY USED OPTIONS:
 
- ifort -I./lapack95_modules_ifort -fpp -O3 -xHost -real-size 64 -qopenmp -assume bscc -assume realloc_lhs parameters.f90 random_init.f90 lattice.f90 thermostat.f90 force.f90 plot.f90 integration.f90 diagnostics.f90 main.f90 -lblas -llapack ./lapack95_modules_ifort/lapack95.a
+ ifort -I./lapack95_modules_ifort -fpp -O3 -xHost -real-size 64 -qopenmp -assume bscc -assume realloc_lhs parameters.f90 random_init.F90 lattice.f90 thermostat.f90 force.f90 plot.f90 integration.f90 diagnostics.f90 main.f90 -lblas -llapack ./lapack95_modules_ifort/lapack95.a
 
- gfortran -I./lapack95_modules_gfort -cpp -O3 -march=native -fdefault-real-8 -fopenmp -fbackslash parameters.f90 random_init.f90 lattice.f90 thermostat.f90 force.f90 plot.f90 integration.f90 diagnostics.f90 main.f90 -lblas -llapack ./lapack95_modules_gfort/lapack95.a
+ gfortran -I./lapack95_modules_gfort -cpp -O3 -march=native -fdefault-real-8 -fopenmp -fbackslash parameters.f90 random_init.F90 lattice.f90 thermostat.f90 force.f90 plot.f90 integration.f90 diagnostics.f90 main.f90 -lblas -llapack ./lapack95_modules_gfort/lapack95.a
 
-!-------------------------------------------------------------------------------------------------------------------------------!
+!-----------------------------------------------------------------------------------------------!
 
  MISCELLANEOUS:
 
@@ -81,7 +82,7 @@ UNTESTED:
  tar -cvpf code.tar *.f90 *.sh *.txt
  tar -xvpf code.tar
 
-!-------------------------------------------------------------------------------------------------------------------------------!
+!-----------------------------------------------------------------------------------------------!
 
    TO DO:
 
@@ -92,4 +93,4 @@ UNTESTED:
  - use 'set term tikz latex' in plot for LaTeX
 
 
-!-------------------------------------------------------------------------------------------------------------------------------!
+!-----------------------------------------------------------------------------------------------!
