@@ -30,7 +30,7 @@ CONTAINS
 
         INTEGER :: u
 
-        OPEN(FILE="data/energy.dat",NEWUNIT=u,ACTION="write",ACCESS="append")
+        OPEN(FILE="data/energy.dat",NEWUNIT=u,ACTION="write",POSITION="append")
         WRITE(u,'(4(F10.5))') k*dt, en, pot_en, kin_en
         CLOSE(u)
 

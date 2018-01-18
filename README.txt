@@ -55,7 +55,7 @@
 
  Use the following during initial compilations, to see all generated warnings:
  intel	: -check -warn -diag-enable=all
- gnu	: -Wall -Wextra
+ gnu	: -Wall -Wextra -pedantic
 
 !-----------------------------------------------------------------------------------------------!
 
