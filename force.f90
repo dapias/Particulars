@@ -100,7 +100,7 @@ CONTAINS
 
         mask = .FALSE.
 
-        c = cell_id(  INT(Rz/cell), INT(Ry/cell), INT(Rx/cell)  )
+        c = cell_id(  FLOOR(Rz/cell), FLOOR(Ry/cell), FLOOR(Rx/cell)  )
 
         DO i = 1, npart
             mask( i, c(i) ) = .TRUE.
@@ -122,7 +122,7 @@ CONTAINS
 
         mask = .FALSE.
 
-        c = cell_id_2D(  INT(Ry/cell), INT(Rx/cell)  )
+        c = cell_id_2D(  FLOOR(Ry/cell), FLOOR(Rx/cell)  )
 
         DO CONCURRENT (i = 1 : npart)
             mask( i, c(i) ) = .TRUE.
