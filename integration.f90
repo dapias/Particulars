@@ -48,9 +48,9 @@ CONTAINS
         REAL, DIMENSION(:), INTENT(IN) :: Fx, Fy, Fz
         REAL, DIMENSION(:), INTENT(INOUT) :: Vx, Vy, Vz
 
-        Vx = Vx + ((Fx*dt)/2.0)
-        Vy = Vy + ((Fy*dt)/2.0)
-        Vz = Vz + ((Fz*dt)/2.0)
+        Vx = Vx + (0.5*Fx*dt)
+        Vy = Vy + (0.5*Fy*dt)
+        Vz = Vz + (0.5*Fz*dt)
 
     END SUBROUTINE integration_VelVerlet_vel
 
@@ -62,8 +62,8 @@ CONTAINS
         REAL, DIMENSION(:), INTENT(IN) :: Fx, Fy
         REAL, DIMENSION(:), INTENT(INOUT) :: Vx, Vy
 
-        Vx = Vx + ((Fx*dt)/2.0)
-        Vy = Vy + ((Fy*dt)/2.0)
+        Vx = Vx + (0.5*Fx*dt)
+        Vy = Vy + (0.5*Fy*dt)
 
     END SUBROUTINE integration_VelVerlet_vel_2D
 
