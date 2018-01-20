@@ -38,8 +38,6 @@ PROGRAM CrysMelt
         STOP "*** Not enough memory ***"
     END IF
 
-    PRINT*, box, num_cell_edge
-
     CALL lattice_simple_cubic(Rx, Ry, Rz)
 
     CALL lattice_velocities_random(Vx, Vy, Vz)
