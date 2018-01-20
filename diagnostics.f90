@@ -4,7 +4,7 @@
 
 MODULE diagnostics
 
-    USE parameters, ONLY : npart
+    USE parameters, ONLY : npart, num_cell_edge
 
     IMPLICIT NONE
 
@@ -73,6 +73,20 @@ CONTAINS
         ERROR STOP "*** Annomalous fluctuation detected ; Error file written ***"
 
     END SUBROUTINE diagnostics_pos_vel_2D
+
+
+    SUBROUTINE diagnostics_NCE_check()
+
+        ! A check for cell-list-based algorithms to ensure that the number of cells along
+        ! an edge is always 3 or more, because otherwise, the force calculation will see the
+        ! same cell as being adjacent in both directions.
+        !   Also, at such low numbers, cell-lists are an unnecessary overhead
+
+        IF (num_cell_edge .LT. 3) THEN
+            ERROR STOP "*** Number of CELLs too low; Do NOT use cell-lists ***"
+        END IF
+
+    END SUBROUTINE diagnostics_NCE_check
 
 
 END MODULE diagnostics

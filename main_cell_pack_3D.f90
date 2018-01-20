@@ -2,8 +2,6 @@
 !                           MOLECULAR DYNAMICS                        !
 !----------------------------------------------------------------------
 
-!! DO NOT use cell-lists for systems with too few particles, or when too dense.
-
 PROGRAM CrysMelt
 
     USE parameters, ONLY : n, npart, num_b
@@ -24,6 +22,8 @@ PROGRAM CrysMelt
     REAL, DIMENSION(:), ALLOCATABLE :: Fx, Fy, Fz, Rx, Ry, Rz, Vx, Vy, Vz, &
         Vsq, g
 
+    CALL diagnostics_NCE_check()
+
     CALL CPU_TIME(start)
     CALL SYSTEM_CLOCK(initiate, clock_rate)
 
@@ -38,7 +38,7 @@ PROGRAM CrysMelt
         STOP "*** Not enough memory ***"
     END IF
 
-    PRINT*, box
+    PRINT*, box, num_cell_edge
 
     CALL lattice_simple_cubic(Rx, Ry, Rz)
 

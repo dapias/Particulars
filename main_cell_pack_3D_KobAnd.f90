@@ -2,8 +2,6 @@
 !                           MOLECULAR DYNAMICS                        !
 !----------------------------------------------------------------------
 
-!! DO NOT use cell-lists for systems with too few particles, or when too dense.
-
 PROGRAM CrysMelt
 
     USE parameters, ONLY : n, npart, num_b, set_temp
@@ -24,6 +22,8 @@ PROGRAM CrysMelt
 
     REAL, DIMENSION(:), ALLOCATABLE :: Fx, Fy, Fz, Rx, Ry, Rz, Vx, Vy, Vz, Vsq
     REAL, DIMENSION(:), ALLOCATABLE :: g
+
+    CALL diagnostics_NCE_check()
 
     CALL CPU_TIME(start)
     CALL SYSTEM_CLOCK(initiate, clock_rate)

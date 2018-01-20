@@ -121,7 +121,7 @@ CONTAINS
 
         REAL :: sumVx, sumVy, sumVz
 
-        CALL init_random_seed_fixed()
+        CALL init_random_seed()
 
         CALL RANDOM_NUMBER(Vx)
         Vx = Vx - 0.5
