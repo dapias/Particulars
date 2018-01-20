@@ -609,7 +609,7 @@ CONTAINS
 
     INTEGER ELEMENTAL FUNCTION cell_id(c, b, a)
 
-        ! Detemining the cell ID of a particle from its position
+        ! Detemining the cell ID of a particle, given its binned position
 
         INTEGER, INTENT(IN) :: a, b, c
 
@@ -620,7 +620,7 @@ CONTAINS
 
     INTEGER ELEMENTAL FUNCTION cell_id_2D(b, a)
 
-        ! Detemining the cell ID of a particle from its position
+        ! Detemining the cell ID of a particle, given its binned position
 
         INTEGER, INTENT(IN) :: a, b
 
