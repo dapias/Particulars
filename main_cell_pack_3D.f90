@@ -107,9 +107,9 @@ PROGRAM CrysMelt
             ppot_en = pot_en
         END IF
 
-        IF ( k .GT. n+1 ) THEN                                              ! switch on the thermostat
-            CALL thermostat_full_pid(temp, Vx, Vy, Vz)
-        END IF
+        !IF ( k .GT. n+1 ) THEN                                              ! switch on the thermostat
+        !    CALL thermostat_full_pid(temp, Vx, Vy, Vz)
+        !END IF
 
         IF ( MODULO(k, 100) .EQ. 0 ) THEN                                   ! sample rate for images
             CALL plot_positions(k, temp, en, Rx, Ry, Rz, Vsq)
