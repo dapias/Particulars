@@ -2,6 +2,8 @@
 !                           MOLECULAR DYNAMICS                        !
 !----------------------------------------------------------------------
 
+!! DO NOT use cell-lists for systems with too few particles, or when too dense.
+
 PROGRAM CrysMelt
 
     USE parameters, ONLY : n, npart, num_b, set_temp

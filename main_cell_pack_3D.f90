@@ -2,6 +2,8 @@
 !                           MOLECULAR DYNAMICS                        !
 !----------------------------------------------------------------------
 
+!! DO NOT use cell-lists for systems with too few particles, or when too dense.
+
 PROGRAM CrysMelt
 
     USE parameters, ONLY : n, npart, num_b
@@ -25,7 +27,7 @@ PROGRAM CrysMelt
     CALL CPU_TIME(start)
     CALL SYSTEM_CLOCK(initiate, clock_rate)
 
-    !CALL EXECUTE_COMMAND_LINE("rm data/*.png")
+    CALL EXECUTE_COMMAND_LINE("rm data/*.png")
     CALL EXECUTE_COMMAND_LINE("rm data/Position/*.png")
     CALL EXECUTE_COMMAND_LINE("rm data/RadDistFunc/*.png")
 
