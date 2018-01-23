@@ -24,7 +24,7 @@ MODULE parameters
     REAL, PARAMETER :: Kp=0.1           ! Proportion gain for the thermostat PID
     REAL, PARAMETER :: Ki=0.05          ! Integration gain for the thermostat PID
     REAL, PARAMETER :: Kd=0.0005        ! Difference gain for the thermostat PID
-    REAL, PARAMETER :: dt=0.0005         ! Time step
+    REAL, PARAMETER :: dt=0.005         ! Time step
     REAL, PARAMETER :: Rc=2.8           ! Cut-off radius for force
     REAL, PARAMETER, PRIVATE :: pi=4.0*ATAN(1.0) ! Pi
 
