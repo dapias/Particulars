@@ -111,11 +111,11 @@ PROGRAM CrysMelt
         !    CALL thermostat_full_pid(temp, Vx, Vy, Vz)
         !END IF
 
-        IF ( MODULO(k, 100) .EQ. 0 ) THEN                                   ! sample rate for images
-            CALL plot_positions(k, temp, en, Rx, Ry, Rz, Vsq)
-        ELSEIF (k .GT. 1300) THEN
-            CALL plot_positions(k, temp, en, Rx, Ry, Rz, Vsq)
-        END IF
+        !IF ( MODULO(k, 100) .EQ. 0 ) THEN                                   ! sample rate for images
+        !    CALL plot_positions(k, temp, en, Rx, Ry, Rz, Vsq)
+        !ELSEIF (k .GT. 1300) THEN
+        !    CALL plot_positions(k, temp, en, Rx, Ry, Rz, Vsq)
+        !END IF
 
         !IF ( MODULO(k, 10) .EQ. 0 ) THEN                                    ! sample rate for rdf images
         !    CALL force_rdf(Rx, Ry, Rz, g)
