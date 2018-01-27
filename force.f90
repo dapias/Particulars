@@ -189,7 +189,7 @@ CONTAINS
 
                     r = l+s
 
-                   
+
                     ALLOCATE( cell_Rx(r), cell_Ry(r), cell_Rz(r), cell_Fx(r), cell_Fy(r), cell_Fz(r) )
 
 
@@ -297,7 +297,7 @@ CONTAINS
         LOGICAL :: border_i_0, border_i_n, border_j_0, border_j_n, border_m
         LOGICAL :: species_p, species_q
         LOGICAL, DIMENSION(npart) :: mask_l_force, mask_s_force
-        LOGICAL, DIMENSION(:), ALLOCATABLE :: cell_species, cell_speciesl, cell_speciess
+        LOGICAL, DIMENSION(:), ALLOCATABLE :: cell_species
         REAL, DIMENSION(:), ALLOCATABLE :: cell_Rx, cell_Ry, cell_Rz, cell_Fx, cell_Fy, cell_Fz
 
         REAL, INTENT(OUT) :: pot_en
@@ -346,7 +346,7 @@ CONTAINS
 
                     r = l+s
 
-                    ALLOCATE( cell_Rx(r), cell_Ry(r), cell_Rz(r), cell_Fx(r), cell_Fy(r), cell_Fz(r) )
+                    ALLOCATE( cell_Rx(r), cell_Ry(r), cell_Rz(r), cell_Fx(r), cell_Fy(r), cell_Fz(r), cell_species(r) )
 
                     cell_Rx(1:l) = PACK(Rx, mask_l_force)                               ! packing the cell
                     cell_Ry(1:l) = PACK(Ry, mask_l_force)
@@ -445,7 +445,7 @@ CONTAINS
                     Fy = Fy + UNPACK(cell_Fy(l+1:r), mask_s_force, real_zero)
                     Fz = Fz + UNPACK(cell_Fz(l+1:r), mask_s_force, real_zero)
 
-                    DEALLOCATE( cell_Rx, cell_Ry, cell_Rz, cell_Fx, cell_Fy, cell_Fz )
+                    DEALLOCATE( cell_Rx, cell_Ry, cell_Rz, cell_Fx, cell_Fy, cell_Fz, cell_species )
 
                 END DO
             END DO
