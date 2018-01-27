@@ -503,7 +503,7 @@ CONTAINS
 
                 r = l+s
 
-                ALLOCATE( cell_Rx(r), cell_Ry(r) )
+                ALLOCATE( cell_Rx(r), cell_Ry(r), cell_Fx(r), cell_Fy(r) )
 
                 cell_Rx(1:l) = PACK(Rx, mask_l_force)                               ! packing the cell
                 cell_Ry(1:l) = PACK(Ry, mask_l_force)
@@ -511,7 +511,6 @@ CONTAINS
                 cell_Rx(l+1:r) = PACK(Rx, mask_s_force)                             ! packing half the surrounding cells
                 cell_Ry(l+1:r) = PACK(Ry, mask_s_force)
 
-                ALLOCATE( cell_Fx(r), cell_Fy(r) )
 
                 cell_Fx = [(real_zero, o=1, r)]
                 cell_Fy = [(real_zero, o=1, r)]
