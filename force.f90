@@ -351,10 +351,12 @@ CONTAINS
                     cell_Rx(1:l) = PACK(Rx, mask_l_force)                               ! packing the cell
                     cell_Ry(1:l) = PACK(Ry, mask_l_force)
                     cell_Rz(1:l) = PACK(Rz, mask_l_force)
+                    cell_species(1:l) = PACK(species, mask_l_force)
 
                     cell_Rx(l+1:r) = PACK(Rx, mask_s_force)                             ! packing half the surrounding cells
                     cell_Ry(l+1:r) = PACK(Ry, mask_s_force)
                     cell_Rz(l+1:r) = PACK(Rz, mask_s_force)
+                    cell_species(l+1:r) = PACK(species, mask_s_force)
 
 
                     cell_Fx = [(real_zero, o=1, r)]
