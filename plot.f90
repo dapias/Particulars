@@ -109,23 +109,26 @@ CONTAINS
         LOGICAL, DIMENSION(:) , INTENT(IN) :: species
         REAL, DIMENSION(:), INTENT(IN) :: Rx, Ry, Rz
 
-        INTEGER :: i, u, v
+        INTEGER :: i, u, v, w
         INTEGER, DIMENSION(npart) :: colour
+        REAL, DIMENSION(npart) :: ptsize
 
         WHERE (species)
-            colour = 2
+            colour = 1
+            ptsize = 2.5
         ELSEWHERE
-            colour = 5
+            colour = 3
+            ptsize = 1.7
         ENDWHERE
 
         OPEN(FILE="data/Position/pos.dat",NEWUNIT=u,ACTION="write",STATUS="replace")! Write particle positions
         DO i = 1, npart
-            WRITE(u,'(F10.5,2(",",F10.5),(",",I6.1))') Rx(i), Ry(i), Rz(i), colour(i)
+            WRITE(u,'(F10.5,3(",",F10.5),(",",I6.1))') Rx(i), Ry(i), Rz(i), ptsize(i), colour(i)
         END DO
         CLOSE(u)
 
         OPEN(FILE="data/Position/gnuplot.style",NEWUNIT=v,ACTION="write",STATUS="replace")  ! Write the gnuplot style file
-        WRITE(v,*)"set terminal pngcairo"
+        WRITE(v,*)"set terminal pngcairo size 1920,1080"
         WRITE(v,'(A12,I0.5,A5)')"set output '",k,".png'"
         !WRITE(v,*)"set terminal epslatex color"
         !WRITE(u,*)"set terminal cairolatex pdf color"
@@ -138,9 +141,10 @@ CONTAINS
         WRITE(v,'(A14,F0.0,A1)')"set xrange [0:",box,"]"
         WRITE(v,'(A14,F0.0,A1)')"set yrange [0:",box,"]"
         WRITE(v,'(A14,F0.0,A1)')"set zrange [0:",box,"]"
-        WRITE(v,*)"set cbrange [0:9]"
-        WRITE(v,*)"unset colorbox"
-        WRITE(v,'(A75)')"splot 'pos.dat' using 1:2:3:4 with points palette pointsize 1.2 pointtype 7"
+        !WRITE(v,*)"set cbrange [0:9]"
+        !WRITE(v,*)"set palette model RGB defined ( 0 'red', 1 'green' )"
+        !WRITE(v,*)"unset colorbox"
+        WRITE(v,'(A77)')"splot 'pos.dat' using 1:2:3:4:5 with points pointsize var lc var pointtype 7"
         CLOSE(v)
 
         CALL EXECUTE_COMMAND_LINE("cd data/Position/ && gnuplot gnuplot.style")          ! Plotting and Saving the image
