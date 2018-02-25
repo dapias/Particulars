@@ -3,6 +3,8 @@ Particulars
 
 ## A set of Molecular-Dynamics programs, primarily to simulate glassy systems
 
+    Copyright (C) 2018 (GPLv3+) Vishnu V. Krishnan : vishnugb@gmail.com
+
 I use CMake to build and compile the program, so you may want to take a look at `CMakeLists.txt` to modify any options.
 
 The program requires a data directory structure as follows:
