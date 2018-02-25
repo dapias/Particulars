@@ -9,16 +9,16 @@ I use CMake to build and compile the program, so you may want to take a look at 
 
 The program requires a data directory structure as follows:
 
-    * `mkdir data`
-    * `mkdir data/Position`
-    * `mkdir data/RadDistFunc`
+    mkdir data
+    mkdir data/Position
+    mkdir data/RadDistFunc
 
 To begin, make a build directory, and run cmake from there, and then make to build, as follows:
 
-    * `mkdir Build && cd Build`
-    * `cmake ..`
-    * `make`
-    * `./prog`
+    mkdir Build && cd Build
+    cmake ..
+    make
+    ./prog
 
 
 ## ADDITIONAL INFORMATION
