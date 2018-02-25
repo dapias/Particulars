@@ -19,7 +19,7 @@
 
 PROGRAM CrysMelt
 
-    USE parameters, ONLY : n, npart, num_b, set_temp
+    USE parameters, ONLY : n, npart, num_b
     USE lattice
     USE thermostat
     USE force
