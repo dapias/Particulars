@@ -10,8 +10,6 @@ MODULE random_init
 #endif
     !!DIR$ END IF
 
-    IMPLICIT NONE
-
 CONTAINS
 
     SUBROUTINE init_random_seed()
