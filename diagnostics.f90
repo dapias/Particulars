@@ -6,8 +6,6 @@ MODULE diagnostics
 
     USE parameters, ONLY : npart, num_cell_edge
 
-    IMPLICIT NONE
-
 CONTAINS
 
 

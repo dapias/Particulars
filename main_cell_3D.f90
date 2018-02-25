@@ -12,8 +12,6 @@ PROGRAM CrysMelt
     USE integration
     USE diagnostics
 
-    IMPLICIT NONE
-
     INTEGER :: k, AllocateStatus, initiate, terminate, clock_rate
 
     INTEGER, DIMENSION(:), ALLOCATABLE :: location

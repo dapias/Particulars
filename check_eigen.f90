@@ -3,8 +3,6 @@ PROGRAM check_eigen
     !USE la_precision, ONLY: WP => DP
     USE f95_lapack, ONLY: LA_SYEVR
 
-    IMPLICIT NONE
-
     INTEGER :: IU
     REAL, DIMENSION(5,5) :: A
     REAL, DIMENSION(5) :: W

@@ -6,8 +6,6 @@ MODULE integration
 
     USE parameters, ONLY : npart, box, dt
 
-    IMPLICIT NONE
-
     REAL, DIMENSION(npart), PRIVATE, PARAMETER :: box_array = box
 
 CONTAINS

@@ -55,7 +55,11 @@
 
  Use the following during initial compilations, to see all generated warnings:
  intel	: -check -warn -diag-enable=all
- gnu	: -Wall -Wextra -pedantic
+ gnu	: -fcheck=all -Wall -Wextra -pedantic
+
+ One no longer needs to add IMPLICIT NONE every where; just use:
+ intel  : -implicitnone
+ gnu    : -fimplicit-none
 
 !-----------------------------------------------------------------------------------------------!
 

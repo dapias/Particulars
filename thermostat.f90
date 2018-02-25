@@ -6,10 +6,7 @@ MODULE thermostat
 
     USE parameters, ONLY : npart, set_temp, dt, Kp, Ki, Kd
 
-    IMPLICIT NONE
-
     REAL, PRIVATE :: proportional, integral, differential
-
 
 CONTAINS
 
@@ -41,7 +38,7 @@ CONTAINS
 
     END SUBROUTINE thermostat_full
 
-    
+
     PURE SUBROUTINE thermostat_full_2D(Vx, Vy)
 
         ! A thermostat simulating an ambient bath/fluid that acts on the

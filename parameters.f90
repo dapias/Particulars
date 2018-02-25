@@ -4,8 +4,6 @@
 
 MODULE parameters
 
-    IMPLICIT NONE
-
     INTEGER, PARAMETER :: n=1000        ! Number of iterations
     INTEGER, PARAMETER :: npart=1000    ! Number of particles
     INTEGER, PARAMETER :: num_b=50      ! Number of bins for g(r)

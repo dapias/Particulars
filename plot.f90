@@ -6,8 +6,6 @@ MODULE plot
 
     USE parameters, ONLY : dt, npart, box, num_b, size_b, norm_b, box2, dimnsn
 
-    IMPLICIT NONE
-
 CONTAINS
 
 

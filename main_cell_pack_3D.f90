@@ -12,8 +12,6 @@ PROGRAM CrysMelt
     USE integration
     USE diagnostics
 
-    IMPLICIT NONE
-
     INTEGER :: k, AllocateStatus, initiate, terminate, clock_rate
 
     REAL :: temp, en, time_cpu, pot_en, ptemp, start, finish, kin_en, &

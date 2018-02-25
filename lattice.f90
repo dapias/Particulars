@@ -8,9 +8,6 @@ MODULE lattice
         dimnsn, npart_cell, npart_d_cell
     USE random_init
 
-    IMPLICIT NONE
-
-
 CONTAINS
 
 

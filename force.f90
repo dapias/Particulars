@@ -8,8 +8,6 @@ MODULE force
         Eps01, Eps11, Sig, Sig00, Sig01, Sig11, pot_en_cut, box2, size_b, &
         num_cell_edge, num_cell_face, num_cell, cell, real_zero
 
-    IMPLICIT NONE
-
     LOGICAL, DIMENSION(npart, num_cell), PRIVATE :: mask
     REAL, PARAMETER, PRIVATE :: cell2 = 2*cell
     REAL, PARAMETER, PRIVATE :: cell2m = (-1)*cell2
