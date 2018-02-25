@@ -14,7 +14,7 @@ CONTAINS
 
         INTEGER :: u
 
-        OPEN(FILE="data/energy.dat",NEWUNIT=u,ACTION="write",STATUS="replace")
+        OPEN(FILE="../data/energy.dat",NEWUNIT=u,ACTION="write",STATUS="replace")
         WRITE(u,'(4(A10))') "time", "tot", "pot", "kin"
         CLOSE(u)
 
@@ -28,7 +28,7 @@ CONTAINS
 
         INTEGER :: u
 
-        OPEN(FILE="data/energy.dat",NEWUNIT=u,ACTION="write",POSITION="append")
+        OPEN(FILE="../data/energy.dat",NEWUNIT=u,ACTION="write",POSITION="append")
         WRITE(u,'(4(F10.5))') k*dt, en, pot_en, kin_en
         CLOSE(u)
 
@@ -39,7 +39,7 @@ CONTAINS
 
         INTEGER :: u
 
-        OPEN(FILE="data/gnuplot.style",NEWUNIT=u,ACTION="write",STATUS="replace") ! energy plot
+        OPEN(FILE="../data/gnuplot.style",NEWUNIT=u,ACTION="write",STATUS="replace") ! energy plot
         WRITE(u,*)"set terminal pngcairo"
         WRITE(u,*)"set output 'energy.png'"
         !WRITE(u,*)"set terminal epslatex color"
@@ -51,7 +51,7 @@ CONTAINS
         WRITE(u,*)"set ylabel 'energy'"
         WRITE(u,*)"plot for [col=2:4] 'energy.dat' using 1:col with lines title columnheader"
         CLOSE(u)
-        CALL EXECUTE_COMMAND_LINE("cd data/ && gnuplot gnuplot.style")
+        CALL EXECUTE_COMMAND_LINE("cd ../data/ && gnuplot gnuplot.style")
 
     END SUBROUTINE plot_energy
 
@@ -67,13 +67,13 @@ CONTAINS
 
         INTEGER :: i, u
 
-        OPEN(FILE="data/Position/pos.dat",NEWUNIT=u,ACTION="write",STATUS="replace")! Write particle positions
+        OPEN(FILE="../data/Position/pos.dat",NEWUNIT=u,ACTION="write",STATUS="replace")! Write particle positions
         DO i = 1, npart
             WRITE(u,'(F10.5,3(",",F10.5))') Rx(i), Ry(i), Rz(i), Vsq(i)
         END DO
         CLOSE(u)
 
-        OPEN(FILE="data/Position/gnuplot.style",NEWUNIT=u,ACTION="write",STATUS="replace")  ! Write the gnuplot style file
+        OPEN(FILE="../data/Position/gnuplot.style",NEWUNIT=u,ACTION="write",STATUS="replace")  ! Write the gnuplot style file
         WRITE(u,*)"set terminal pngcairo"
         WRITE(u,'(A12,I0.5,A5)')"set output '",k,".png'"
         !WRITE(u,*)"set terminal epslatex color"
@@ -91,7 +91,7 @@ CONTAINS
         WRITE(u,'(A75)')"splot 'pos.dat' using 1:2:3:4 with points palette pointsize 1.2 pointtype 7"
         CLOSE(u)
 
-        CALL EXECUTE_COMMAND_LINE("cd data/Position/ && gnuplot gnuplot.style")          ! Plotting and Saving the image
+        CALL EXECUTE_COMMAND_LINE("cd ../data/Position/ && gnuplot gnuplot.style")          ! Plotting and Saving the image
 
 
     END SUBROUTINE plot_positions
@@ -119,13 +119,13 @@ CONTAINS
             ptsize = 1.7
         ENDWHERE
 
-        OPEN(FILE="data/Position/pos.dat",NEWUNIT=u,ACTION="write",STATUS="replace")! Write particle positions
+        OPEN(FILE="../data/Position/pos.dat",NEWUNIT=u,ACTION="write",STATUS="replace")! Write particle positions
         DO i = 1, npart
             WRITE(u,'(F10.5,3(",",F10.5),(",",I6.1))') Rx(i), Ry(i), Rz(i), ptsize(i), colour(i)
         END DO
         CLOSE(u)
 
-        OPEN(FILE="data/Position/gnuplot.style",NEWUNIT=v,ACTION="write",STATUS="replace")  ! Write the gnuplot style file
+        OPEN(FILE="../data/Position/gnuplot.style",NEWUNIT=v,ACTION="write",STATUS="replace")  ! Write the gnuplot style file
         WRITE(v,*)"set terminal pngcairo size 1920,1080"
         WRITE(v,'(A12,I0.5,A5)')"set output '",k,".png'"
         !WRITE(v,*)"set terminal epslatex color"
@@ -145,7 +145,7 @@ CONTAINS
         WRITE(v,'(A77)')"splot 'pos.dat' using 1:2:3:4:5 with points pointsize var lc var pointtype 7"
         CLOSE(v)
 
-        CALL EXECUTE_COMMAND_LINE("cd data/Position/ && gnuplot gnuplot.style")          ! Plotting and Saving the image
+        CALL EXECUTE_COMMAND_LINE("cd ../data/Position/ && gnuplot gnuplot.style")          ! Plotting and Saving the image
 
 
     END SUBROUTINE plot_positions_KobAnd
@@ -162,13 +162,13 @@ CONTAINS
 
         INTEGER :: i, u, v
 
-        OPEN(FILE="data/Position/pos.dat",NEWUNIT=u,ACTION="write",STATUS="replace")! Write particle positions
+        OPEN(FILE="../data/Position/pos.dat",NEWUNIT=u,ACTION="write",STATUS="replace")! Write particle positions
         DO i = 1, npart
             WRITE(u,'(F10.5,2(",",F10.5))') Rx(i), Ry(i), Vsq(i)
         END DO
         CLOSE(u)
 
-        OPEN(FILE="data/Position/gnuplot.style",NEWUNIT=v,ACTION="write",STATUS="replace")  ! Write the gnuplot style file
+        OPEN(FILE="../data/Position/gnuplot.style",NEWUNIT=v,ACTION="write",STATUS="replace")  ! Write the gnuplot style file
         WRITE(v,*)"set terminal pngcairo"
         WRITE(v,'(A12,I0.5,A5)')"set output '",k,".png'"
         !WRITE(v,*)" set terminal epslatex color"
@@ -183,7 +183,7 @@ CONTAINS
         WRITE(v,'(A75)')"plot 'pos.dat' using 1:2:3 with points palette pointsize 0.85 pointtype 7"
         CLOSE(v)
 
-        CALL EXECUTE_COMMAND_LINE("cd data/Position/ && gnuplot gnuplot.style")          ! Plotting and Saving the image
+        CALL EXECUTE_COMMAND_LINE("cd ../data/Position/ && gnuplot gnuplot.style")          ! Plotting and Saving the image
 
 
     END SUBROUTINE plot_positions_2D
@@ -201,7 +201,7 @@ CONTAINS
         INTEGER :: i, u, v
         REAL :: r_b, vol_b, gr
 
-        OPEN(FILE="data/RadDistFunc/RadDistFunc.dat",NEWUNIT=u,ACTION="write",STATUS="replace")
+        OPEN(FILE="../data/RadDistFunc/RadDistFunc.dat",NEWUNIT=u,ACTION="write",STATUS="replace")
         DO CONCURRENT (i = 1 : num_b)                                                   ! normalizing g(r)
             r_b = (i-0.5)*size_b
             vol_b = norm_b * ( (i**dimnsn) - ((i-1)**dimnsn) )
@@ -210,7 +210,7 @@ CONTAINS
         END DO
         CLOSE(u)
 
-        OPEN(FILE="data/RadDistFunc/gnuplot.style",NEWUNIT=v,ACTION="write",STATUS="replace")  ! Write the gnuplot style file
+        OPEN(FILE="../data/RadDistFunc/gnuplot.style",NEWUNIT=v,ACTION="write",STATUS="replace")  ! Write the gnuplot style file
         WRITE(v,*)"set terminal pngcairo"
         WRITE(v,'(A12,I0.5,A5)')"set output '",k,".png'"
         !WRITE(v,*)"set terminal epslatex color"
@@ -225,7 +225,7 @@ CONTAINS
         WRITE(v,*)"plot 'RadDistFunc.dat' with boxes "
         CLOSE(v)
 
-        CALL EXECUTE_COMMAND_LINE("cd data/RadDistFunc/ && gnuplot gnuplot.style")          ! Plotting and Saving the image
+        CALL EXECUTE_COMMAND_LINE("cd ../data/RadDistFunc/ && gnuplot gnuplot.style")          ! Plotting and Saving the image
 
     END SUBROUTINE plot_radial_dist
 

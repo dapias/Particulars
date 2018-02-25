@@ -26,9 +26,9 @@ PROGRAM CrysMelt
     CALL CPU_TIME(start)
     CALL SYSTEM_CLOCK(initiate, clock_rate)
 
-    CALL EXECUTE_COMMAND_LINE("rm data/*.png")
-    CALL EXECUTE_COMMAND_LINE("rm data/Position/*.png")
-    CALL EXECUTE_COMMAND_LINE("rm data/RadDistFunc/*.png")
+    CALL EXECUTE_COMMAND_LINE("rm ../data/*.png")
+    CALL EXECUTE_COMMAND_LINE("rm ../data/Position/*.png")
+    CALL EXECUTE_COMMAND_LINE("rm ../data/RadDistFunc/*.png")
 
     ALLOCATE(Rx(npart), Ry(npart), Rz(npart), species(npart), Fx(npart), Fy(npart), &
     Fz(npart), Vx(npart), Vy(npart), Vz(npart), Vsq(npart), g(num_b), &
