@@ -1,3 +1,10 @@
+#   Copyright (C) 2015-2018  Vishnu V. Krishnan : vishnugb@gmail.com
+#
+#   Copying and distribution of this file, with or without modification,
+#   are permitted in any medium without royalty provided the copyright
+#   notice and this notice are preserved.  This file is offered as-is,
+#   without any warranty.
+
 11 Jul 2016
 
 - realised that SQRT(dRsq) E [0,6*SQRT(3)] and not [0,6],  and that so, the IF statement aroung the g(r) populating statement is necessary.

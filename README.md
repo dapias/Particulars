@@ -3,7 +3,12 @@ Particulars
 
 ## A set of Molecular-Dynamics programs, primarily to simulate glassy systems
 
-    Copyright (C) 2018 (GPLv3+) Vishnu V. Krishnan : vishnugb@gmail.com
+    Copyright (C) 2015-2018 Vishnu V. Krishnan : vishnugb@gmail.com
+
+    Copying and distribution of this file, with or without modification,
+    are permitted in any medium without royalty provided the copyright
+    notice and this notice are preserved.  This file is offered as-is,
+    without any warranty.
 
 I use CMake to build and compile the program, so you may want to take a look at `CMakeLists.txt` to modify any options.
 
