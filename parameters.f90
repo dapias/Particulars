@@ -41,7 +41,7 @@ MODULE parameters
     REAL, PARAMETER :: Rc=2.8           ! Cut-off radius for force
     REAL, PARAMETER, PRIVATE :: pi=4.0*ATAN(1.0) ! Pi
 
-    REAL, PARAMETER :: rho=0.5                                      ! Particle density
+    REAL, PARAMETER :: rho=1.2                                      ! Particle density
     REAL, PARAMETER :: box=(npart/rho)**(1/REAL(dimnsn))            ! Box side length
     !REAL, PARAMETER :: box=12                                       ! Box side length
     !REAL, PARAMETER :: rho = npart/(box**dimnsn)                    ! particle density
