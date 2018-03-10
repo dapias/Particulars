@@ -19,9 +19,10 @@ The program requires a data directory structure as follows:
     mkdir data/RadDistFunc
 
 To begin, make a build directory, and run cmake from there, and then make to build, as follows:
+Replace `Release` with `Debug` to enable all error checks and debug symbols.
 
     mkdir Build && cd Build
-    cmake ..
+    cmake -DCMAKE_BUILD_TYPE=Release ..
     make
     ./prog
 
