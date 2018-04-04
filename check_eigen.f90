@@ -29,7 +29,7 @@ PROGRAM check_eigen
     A(:,5) = [-0.01, 1.0, 21.0, -107.0, 0.05]
 
     !CALL LA_SYEVX(A,W,IU=1)
-    CALL LA_SYEVR(A,W)
+    CALL LA_SYEVR(A,W,IU=1)
 
     PRINT*, W
 
