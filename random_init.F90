@@ -35,7 +35,7 @@ CONTAINS
         INTEGER :: i, n, un, istat, dt(8), pid
         INTEGER(int64) :: t
 
-        CALL random_seed(size = n)
+        CALL RANDOM_SEED(size = n)
         ALLOCATE(seed(n))
         ! First try if the OS provides a random number generator
 
@@ -69,7 +69,7 @@ CONTAINS
             END DO
 
         END IF
-        CALL random_seed(put=seed)
+        CALL RANDOM_SEED(put=seed)
 
         CONTAINS
           ! This simple PRNG might not be good enough for real work, but is
