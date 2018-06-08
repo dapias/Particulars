@@ -43,10 +43,11 @@ Add module files before the main Program in order of increasing dependencies (i.
 Use the following compiler option to change to double precision:
 intel :   `-real-size 64`
 gnu   :   `-fdefault-real-8`
+            But prefer `-freal-4-real-8`, because its implementation is supposedly less buggy
 
 Use the following compiler option to change to prevent integer overflow:
 intel :   `-integer-size 64`
-gnu   :   `-fdefault-integer-8`
+gnu   :   `-fdefault-integer-8` or `-finteger-4-integer-8`
 
 Use the following compiler option if you want the 'percentage complete' indication. Else, comment out relevant code:
 intel :   `-assume bscc`
