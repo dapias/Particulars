@@ -20,12 +20,12 @@
 PROGRAM CrysMelt
 
     USE parameters, ONLY : n, npart, num_b
-    USE lattice
-    USE thermostat
-    USE force
-    USE plot
-    USE integration
-    USE diagnostics
+    USE lattice, ONLY : lattice_simple_cubic, lattice_speciate, lattice_velocities_random
+    USE thermostat, ONLY : thermostat_full, thermostat_pid_init, thermostat_full_pid
+    USE force, ONLY : force_create_cell_list, force_cell_list_KobAnd, force_rdf
+    USE plot, ONLY : plot_positions_KobAnd, plot_radial_dist, plot_energy_init, plot_energy_data, plot_energy
+    USE integration, ONLY : integration_VelVerlet_pos, integration_VelVerlet_vel
+    USE diagnostics, ONLY : diagnostics_NCE_check, diagnostics_pos_vel
 
     INTEGER :: k, AllocateStatus, initiate, terminate, clock_rate
 
